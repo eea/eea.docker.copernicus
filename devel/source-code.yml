@@ -1,5 +1,5 @@
 source_code:
-  image: eeacms/plone-land-copernicus
+  image: eeacms/plone-copernicus-land
   entrypoint: ['buildout']
   command: ['-c', 'source.cfg']
   volumes:
