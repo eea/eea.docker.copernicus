@@ -67,6 +67,9 @@ Deploy in production:
 
     $ rancher-compose --project-name copernicus-insitu --env-file production.env up -d
 
+See also [Rancher tips and tricks](https://taskman.eionet.europa.eu/projects/netpub/wiki/Rancher_tips_and_tricks#Loading-data-into-a-database)
+for info on how to restore **Data.fs** and **blobstorage**
+
 Upgrade:
 
     $ rancher-compose --project-name copernicus-land --env-file production.env up -d --upgrade
