@@ -69,21 +69,21 @@ Upgrade:
 1. Trigger an new build on Docker Hub for [eeacms/plone-copernicus-land](https://hub.docker.com/r/eeacms/plone-copernicus-land/) and wait for it to finish.
 2. Change `LAST_DEPLOYED` environment within `land.env` and `insitu.env` files.
 
-       $ vim land.env
-       $ vim insitu.env
+        $ vim land.env
+        $ vim insitu.env
 
 3. Run the upgrade:
 
-       $ rancher-compose --project-name copernicus-land --env-file land.env up -d --upgrade
-       $ rancher-compose --project-name copernicus-insitu --env-file insitu.env up -d --upgrade
+        $ rancher-compose --project-name copernicus-land --env-file land.env up -d --upgrade
+        $ rancher-compose --project-name copernicus-insitu --env-file insitu.env up -d --upgrade
 
 4. Confirm that the upgrade went well:
 
-       $ rancher-compose --project-name copernicus-land --env-file land.env up -d --confirm-upgrade
-       $ rancher-compose --project-name copernicus-insitu --env-file insitu.env up -d --confirm-upgrade
+        $ rancher-compose --project-name copernicus-land --env-file land.env up -d --confirm-upgrade
+        $ rancher-compose --project-name copernicus-insitu --env-file insitu.env up -d --confirm-upgrade
 
 5. Roll-back if the upgrade didn't go well:
 
-       $ rancher-compose --project-name copernicus-land --env-file land.env up -d --roll-back
-       $ rancher-compose --project-name copernicus-insitu --env-file insitu.env up -d --roll-back
+        $ rancher-compose --project-name copernicus-land --env-file land.env up -d --roll-back
+        $ rancher-compose --project-name copernicus-insitu --env-file insitu.env up -d --roll-back
 
