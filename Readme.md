@@ -45,26 +45,25 @@ Once you're done editing, restart the application and test your changes:
 
 ### Deployment
 
-Pre-requirements:
+**Pre-requirements**:
 
 * [Rancher Compose](http://docs.rancher.com/rancher/rancher-compose/)
 * Within Rancher UI register min 1 hosts with label: `copernicus=yes`
 
-On your laptop:
+**Deploy in production**
+
+On your laptop do :
 
     $ git clone https://github.com/eea/eea.docker.copernicus.git
     $ cd eea.docker.copernicus/deploy
 
-Deploy in production:
-
     $ rancher-compose --project-name copernicus-land --env-file land.env up -d
-
     $ rancher-compose --project-name copernicus-insitu --env-file insitu.env up -d
 
 See also [Rancher tips and tricks](https://taskman.eionet.europa.eu/projects/netpub/wiki/Rancher_tips_and_tricks#Loading-data-into-a-database)
 for info on how to restore **Data.fs** and **blobstorage**
 
-Upgrade:
+**Upgrade**
 
 1. Trigger an new build on Docker Hub for [eeacms/plone-copernicus-land](https://hub.docker.com/r/eeacms/plone-copernicus-land/) and wait for it to finish.
 2. Change `LAST_DEPLOYED` environment within `land.env` and `insitu.env` files.
@@ -86,4 +85,3 @@ Upgrade:
 
         $ rancher-compose --project-name copernicus-land --env-file land.env up -d --roll-back
         $ rancher-compose --project-name copernicus-insitu --env-file insitu.env up -d --roll-back
-
