@@ -55,35 +55,35 @@ On your laptop:
     $ git clone https://github.com/eea/eea.docker.copernicus.git
     $ cd eea.docker.copernicus/deploy
 
-Deploy on staging/demo:
-
-    $ rancher-compose --project-name copernicus-land --env-file staging.env up -d
-
-    $ rancher-compose --project-name copernicus-insitu --env-file staging.env up -d
-
 Deploy in production:
 
-    $ rancher-compose --project-name copernicus-land --env-file production.env up -d
+    $ rancher-compose --project-name copernicus-land --env-file land.env up -d
 
-    $ rancher-compose --project-name copernicus-insitu --env-file production.env up -d
+    $ rancher-compose --project-name copernicus-insitu --env-file insitu.env up -d
 
 See also [Rancher tips and tricks](https://taskman.eionet.europa.eu/projects/netpub/wiki/Rancher_tips_and_tricks#Loading-data-into-a-database)
 for info on how to restore **Data.fs** and **blobstorage**
 
 Upgrade:
 
-    $ rancher-compose --project-name copernicus-land --env-file production.env up -d --upgrade
+1. Trigger an new build on Docker Hub for [eeacms/plone-copernicus-land](https://hub.docker.com/r/eeacms/plone-copernicus-land/) and wait for it to finish.
+2. Change `LAST_DEPLOYED` environment within `land.env` and `insitu.env` files.
 
-    $ rancher-compose --project-name copernicus-insitu --env-file production.env up -d --upgrade
+       $ vim land.env
+       $ vim insitu.env
 
-...and confirm that the upgrade went well:
+3. Run the upgrade:
 
-    $ rancher-compose --project-name copernicus-land --env-file production.env up -d --confirm-upgrade
+       $ rancher-compose --project-name copernicus-land --env-file land.env up -d --upgrade
+       $ rancher-compose --project-name copernicus-insitu --env-file insitu.env up -d --upgrade
 
-    $ rancher-compose --project-name copernicus-insitu --env-file production.env up -d --confirm-upgrade
+4. Confirm that the upgrade went well:
 
-...or roll-back:
+       $ rancher-compose --project-name copernicus-land --env-file land.env up -d --confirm-upgrade
+       $ rancher-compose --project-name copernicus-insitu --env-file insitu.env up -d --confirm-upgrade
 
-    $ rancher-compose --project-name copernicus-land --env-file production.env up -d --roll-back
+5. Roll-back if the upgrade didn't go well:
 
-    $ rancher-compose --project-name copernicus-insitu --env-file production.env up -d --roll-back
+       $ rancher-compose --project-name copernicus-land --env-file land.env up -d --roll-back
+       $ rancher-compose --project-name copernicus-insitu --env-file insitu.env up -d --roll-back
+

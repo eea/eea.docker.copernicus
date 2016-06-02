@@ -49,6 +49,7 @@ plone:
   - postfix
   environment:
     ZOPE_MODE: zeo_client
+    LAST_DEPLOYED: ${LAST_DEPLOYED}
   volumes:
   - /etc/localtime:/etc/localtime:ro
 
@@ -64,7 +65,8 @@ async:
   - memcached
   - postfix
   environment:
-  - ZOPE_MODE=zeo_async
+    ZOPE_MODE: zeo_async
+    LAST_DEPLOYED: ${LAST_DEPLOYED}
   volumes:
   - /etc/localtime:/etc/localtime:ro
 
@@ -79,7 +81,8 @@ zeoserver:
   volumes_from:
   - data
   environment:
-  - ZOPE_MODE=zeoserver
+    ZOPE_MODE: zeoserver
+    LAST_DEPLOYED: ${LAST_DEPLOYED}
   volumes:
   - /etc/localtime:/etc/localtime:ro
 
@@ -91,6 +94,7 @@ data:
   tty: true
   stdin_open: true
   volumes:
-  - /data/filestorage
-  - /data/blobstorage
+  - ${FILESTORAGE}:/data/filestorage
+  - ${BLOBSTORAGE}:/data/blobstorage
+  volume_driver: ${VOLUME_DRIVER}
   command: ["chown", "-R", "500:500", "/data"]
