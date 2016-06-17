@@ -5,7 +5,7 @@ apache:
   environment:
     - SERVER_ADMIN=helpdesk@eea.europa.eu
     - SERVER_NAME=${DOMAIN_NAME}
-    - RewriteRule=^/(.*) http://haproxy:5000/VirtualHostBase/http/${DOMAIN_NAME}:80/VirtualHostRoot/copernicus/${PATH} [P,L]
+    - RewriteRule=^/(.*) http://haproxy:5000/VirtualHostBase/http/${DOMAIN_NAME}:80/copernicus/VirtualHostRoot/${PATH} [P,L]
 
 haproxy:
   image: eeacms/haproxy
