@@ -1,3 +1,12 @@
+apache:
+  image: eeacms/apache
+  links:
+  - haproxy
+  environment:
+    - SERVER_ADMIN=helpdesk@eea.europa.eu
+    - SERVER_NAME=${DOMAIN_NAME}
+    - RewriteRule=^/(.*) http://haproxy:5000/VirtualHostBase/http/${DOMAIN_NAME}:80/VirtualHostRoot/copernicus/${PATH} [P,L]
+
 haproxy:
   image: eeacms/haproxy
   labels:
@@ -5,8 +14,6 @@ haproxy:
     io.rancher.scheduler.affinity:host_label: copernicus=yes
   tty: true
   stdin_open: true
-  ports:
-  - 8080:5000
   links:
   - plone
   environment:
@@ -96,5 +103,6 @@ data:
   volumes:
   - ${FILESTORAGE}:/data/filestorage
   - ${BLOBSTORAGE}:/data/blobstorage
+  - ${DOWNLOADS}:/data/downloads
   volume_driver: ${VOLUME_DRIVER}
   command: ["chown", "-R", "500:500", "/data"]
