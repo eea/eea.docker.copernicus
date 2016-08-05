@@ -66,7 +66,7 @@ for info on how to restore **Data.fs** and **blobstorage**
 **Upgrade**
 
 1. Trigger an new build on Docker Hub for [eeacms/plone-copernicus-land](https://hub.docker.com/r/eeacms/plone-copernicus-land/) and wait for it to finish.
-2. Change `LAST_DEPLOYED` environment within `land.env` and `insitu.env` files.
+2. [DEPRECATED: we are using now tags.] Change `LAST_DEPLOYED` environment within `land.env` and `insitu.env` files.
 
         $ vim land.env
         $ vim insitu.env

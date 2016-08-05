@@ -42,7 +42,7 @@ postfix:
   - /etc/localtime:/etc/localtime:ro
 
 plone:
-  image: eeacms/plone-copernicus-land
+  image: eeacms/plone-copernicus-land:2016.08.05
   labels:
     io.rancher.container.pull_image: always
     io.rancher.scheduler.affinity:host_label: copernicus=yes
@@ -54,12 +54,11 @@ plone:
   - postfix
   environment:
     ZOPE_MODE: zeo_client
-    LAST_DEPLOYED: ${LAST_DEPLOYED}
   volumes:
   - /etc/localtime:/etc/localtime:ro
 
 async:
-  image: eeacms/plone-copernicus-land
+  image: eeacms/plone-copernicus-land:2016.08.05
   labels:
     io.rancher.container.pull_image: always
     io.rancher.scheduler.affinity:host_label: copernicus=yes
@@ -71,12 +70,11 @@ async:
   - postfix
   environment:
     ZOPE_MODE: zeo_async
-    LAST_DEPLOYED: ${LAST_DEPLOYED}
   volumes:
   - /etc/localtime:/etc/localtime:ro
 
 zeoserver:
-  image: eeacms/plone-copernicus-land
+  image: eeacms/plone-copernicus-land:2016.08.05
   labels:
     io.rancher.sidekicks: data
     io.rancher.container.pull_image: always
@@ -87,7 +85,6 @@ zeoserver:
   - data
   environment:
     ZOPE_MODE: zeoserver
-    LAST_DEPLOYED: ${LAST_DEPLOYED}
   volumes:
   - /etc/localtime:/etc/localtime:ro
 
