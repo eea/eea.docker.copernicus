@@ -1,5 +1,5 @@
 plone:
-  image: eeacms/plone-copernicus-land:2016.08.05
+  image: eeacms/plone-copernicus-land:2016.08.29
   ports:
   - "8080:8080"
   volumes:
