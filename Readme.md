@@ -81,7 +81,7 @@ for info on how to restore **Data.fs** and **blobstorage**
 
 3. Run the upgrade:
 
-        $ $ rancher-compose --project-name copernicus-land --env-file land.env pull
+        $ rancher-compose --project-name copernicus-land --env-file land.env pull
         $ rancher-compose --project-name copernicus-land --env-file land.env up -d --upgrade --interval 90000 --batch-size 1
 
         $ rancher-compose --project-name copernicus-insitu --env-file insitu.env pull
