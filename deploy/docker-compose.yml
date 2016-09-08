@@ -8,7 +8,6 @@ apache:
 haproxy:
   image: eeacms/haproxy
   labels:
-    io.rancher.container.pull_image: always
     io.rancher.scheduler.affinity:host_label: copernicus=yes
   tty: true
   stdin_open: true
@@ -24,7 +23,6 @@ haproxy:
 memcached:
   image: eeacms/memcached
   labels:
-    io.rancher.container.pull_image: always
     io.rancher.scheduler.affinity:host_label: copernicus=yes
   tty: true
   stdin_open: true
@@ -32,7 +30,6 @@ memcached:
 postfix:
   image: eeacms/postfix:eionet
   labels:
-    io.rancher.container.pull_image: always
     io.rancher.scheduler.affinity:host_label: copernicus=yes
   tty: true
   stdin_open: true
@@ -42,9 +39,8 @@ postfix:
   - /etc/localtime:/etc/localtime:ro
 
 plone:
-  image: eeacms/plone-copernicus-land:2016.09.06
+  image: eeacms/plone-copernicus-land:${VERSION}
   labels:
-    io.rancher.container.pull_image: always
     io.rancher.scheduler.affinity:host_label: copernicus=yes
   tty: true
   stdin_open: true
@@ -58,9 +54,8 @@ plone:
   - /etc/localtime:/etc/localtime:ro
 
 async:
-  image: eeacms/plone-copernicus-land:2016.09.06
+  image: eeacms/plone-copernicus-land:${VERSION}
   labels:
-    io.rancher.container.pull_image: always
     io.rancher.scheduler.affinity:host_label: copernicus=yes
   tty: true
   stdin_open: true
@@ -74,10 +69,9 @@ async:
   - /etc/localtime:/etc/localtime:ro
 
 zeoserver:
-  image: eeacms/plone-copernicus-land:2016.09.06
+  image: eeacms/plone-copernicus-land:${VERSION}
   labels:
     io.rancher.sidekicks: data
-    io.rancher.container.pull_image: always
     io.rancher.scheduler.affinity:host_label: copernicus=yes
   tty: true
   stdin_open: true
@@ -91,7 +85,6 @@ zeoserver:
 data:
   image: busybox
   labels:
-    io.rancher.container.pull_image: always
     io.rancher.container.start_once: 'true'
   tty: true
   stdin_open: true
