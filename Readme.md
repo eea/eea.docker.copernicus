@@ -90,14 +90,17 @@ for info on how to restore **Data.fs** and **blobstorage**
 4. Confirm that the upgrade went well:
 
         $ rancher-compose --project-name copernicus-land --env-file land.env up -d --confirm-upgrade
+
         $ rancher-compose --project-name copernicus-insitu --env-file insitu.env up -d --confirm-upgrade
 
 5. Roll-back if the upgrade didn't go well:
 
         $ rancher-compose --project-name copernicus-land --env-file land.env up -d --roll-back
+
         $ rancher-compose --project-name copernicus-insitu --env-file insitu.env up -d --roll-back
 
 6. Invalidate cache
 
         $ rancher-compose --project-name copernicus-land --env-file land.env restart memcached
+
         $ rancher-compose --project-name copernicus-insitu --env-file insitu.env restart memcached
