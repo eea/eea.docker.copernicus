@@ -21,7 +21,7 @@ In order to be able to edit source-code on your machine using your favorite edit
 Now get the source code:
 
     $ git clone https://github.com/eea/eea.docker.copernicus.git
-    $ cd eea.docker.copernicus/devel
+    $ cd eea.docker.copernicus/devel/land
     $ docker-compose -f source-code.yml up
 
 Start the application:
@@ -55,15 +55,17 @@ Once you're done editing, restart the application and test your changes:
 On your laptop do :
 
     $ git clone https://github.com/eea/eea.docker.copernicus.git
-    $ cd eea.docker.copernicus/deploy
 
+    $ cd eea.docker.copernicus/deploy/land
     $ rancher-compose --project-name copernicus-land --env-file land.env up -d
+
+    $ cd eea.docker.copernicus/deploy/insitu
     $ rancher-compose --project-name copernicus-insitu --env-file insitu.env up -d
 
 See also [Rancher tips and tricks](https://taskman.eionet.europa.eu/projects/netpub/wiki/Rancher_tips_and_tricks#Loading-data-into-a-database)
 for info on how to restore **Data.fs** and **blobstorage**
 
-**Upgrade**
+**Upgrade (Land)**
 
 1. Release a new version of [eeacms/plone-copernicus-land](https://hub.docker.com/r/eeacms/plone-copernicus-land/):
 
@@ -74,9 +76,8 @@ for info on how to restore **Data.fs** and **blobstorage**
 
 2. Update VERSION within `.env` files:
 
-        $ cd eea.docker.copernicus/deploy
+        $ cd eea.docker.copernicus/deploy/land
         $ vim land.env
-        $ vim insitu.env
         VERSION=2020-12-31
 
 3. Run the upgrade:
@@ -84,23 +85,47 @@ for info on how to restore **Data.fs** and **blobstorage**
         $ rancher-compose --project-name copernicus-land --env-file land.env pull
         $ rancher-compose --project-name copernicus-land --env-file land.env up -d --upgrade --interval 90000 --batch-size 1
 
-        $ rancher-compose --project-name copernicus-insitu --env-file insitu.env pull
-        $ rancher-compose --project-name copernicus-insitu --env-file insitu.env up -d --upgrade --interval 90000 --batch-size 1
-
 4. Confirm that the upgrade went well:
 
         $ rancher-compose --project-name copernicus-land --env-file land.env up -d --confirm-upgrade
-
-        $ rancher-compose --project-name copernicus-insitu --env-file insitu.env up -d --confirm-upgrade
 
 5. Roll-back if the upgrade didn't go well:
 
         $ rancher-compose --project-name copernicus-land --env-file land.env up -d --roll-back
 
-        $ rancher-compose --project-name copernicus-insitu --env-file insitu.env up -d --roll-back
-
 6. Invalidate cache
 
         $ rancher-compose --project-name copernicus-land --env-file land.env restart memcached
+
+
+**Upgrade (Insitu)**
+
+1. Release a new version of [eeacms/plone-copernicus-insitu](https://hub.docker.com/r/eeacms/plone-copernicus-insitu/):
+
+        $ git clone https://github.com/eea/eea.docker.plone-insitu.git
+        $ cd eea.docker.plone-insitu
+        $ git tag 2020-12-31
+        $ git push --tags
+
+2. Update VERSION within `.env` files:
+
+        $ cd eea.docker.copernicus/deploy/insitu
+        $ vim insitu.env
+        VERSION=2020-12-31
+
+3. Run the upgrade:
+
+        $ rancher-compose --project-name copernicus-insitu --env-file insitu.env pull
+        $ rancher-compose --project-name copernicus-insitu --env-file insitu.env up -d --upgrade --interval 90000 --batch-size 1
+
+4. Confirm that the upgrade went well:
+
+        $ rancher-compose --project-name copernicus-insitu --env-file insitu.env up -d --confirm-upgrade
+
+5. Roll-back if the upgrade didn't go well:
+
+        $ rancher-compose --project-name copernicus-insitu --env-file insitu.env up -d --roll-back
+
+6. Invalidate cache
 
         $ rancher-compose --project-name copernicus-insitu --env-file insitu.env restart memcached
