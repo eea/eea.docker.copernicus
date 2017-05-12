@@ -17,6 +17,8 @@ haproxy:
   - BACKENDS=plone
   - BACKENDS_PORT=8080
   - DNS_ENABLED=true
+  - TIMEOUT_SERVER=180000
+  - TIMEOUT_CLIENT=180000
   volumes:
   - /etc/localtime:/etc/localtime:ro
 
