@@ -71,18 +71,14 @@ async:
   - /etc/localtime:/etc/localtime:ro
 
 zeoserver:
-  image: eeacms/plone-copernicus-land:${VERSION}
+  image: plone/zeoserver:2.13.23
   labels:
     io.rancher.sidekicks: data
     io.rancher.scheduler.affinity:host_label: copernicus=yes
-  tty: true
-  stdin_open: true
   volumes_from:
   - data
   environment:
-    ZOPE_MODE: zeoserver
-  volumes:
-  - /etc/localtime:/etc/localtime:ro
+    TZ: "Europe/Copenhagen"
 
 data:
   image: busybox
