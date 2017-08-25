@@ -1,16 +1,36 @@
-plone:
-  image: eeacms/plone-copernicus-land
-  ports:
-  - "8080:8080"
-  volumes:
-  - ./src:/plone/instance/src
-  volumes_from:
-  - plone_data
-  command: ["fg"]
+version: "2"
 
-plone_data:
-  image: busybox
-  volumes:
-  - /data/filestorage
-  - /data/blobstorage
-  command: ["chown", "-R", "500:500", "/data"]
+services:
+
+  plone:
+    image: eeacms/plone-copernicus-land
+    ports:
+    - "8080:8080"
+    volumes:
+      - land-data:/data
+      - ./src:/plone/instance/src
+    environment:
+      ZOPE_MODE: zeo_client
+    # this places the container in "shell mode". Run
+    # "docker-compose exec plone bash" to enter the shell
+    # then you can start the instance with bin/zeo_client fg
+    entrypoint: sh -c "tail -f /dev/null"
+
+  async:
+    image: eeacms/plone-copernicus-land
+    tty: true
+    stdin_open: true
+    environment:
+      ZOPE_MODE: zeo_async
+    volumes:
+    - /etc/localtime:/etc/localtime:ro
+
+  zeoserver:
+    image: plone/zeoserver:2.13.23
+    volumes:
+      - land-data:/data
+    environment:
+      TZ: "Europe/Copenhagen"
+
+volumes:
+  land-data:
