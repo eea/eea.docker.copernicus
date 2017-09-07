@@ -1,0 +1,20 @@
+version: "2"
+services:
+  copernicus:
+    image: eeacms/kgs
+    volumes:
+    - ./src:/plone/instance/src
+    - ./buildout.cfg:/plone/instance/buildout.cfg
+    - data:/data
+    ports:
+    - "8080:8080"
+    - "8021:8021"
+    tty: true
+    stdin_open: true
+    environment:
+      COPERNICUS_DOWNLOADS_PATH: "/data/downloads/files/"
+      COPERNICUS_DOWNLOADS_NAME: "files"
+    command: cat
+
+volumes:
+  data:
