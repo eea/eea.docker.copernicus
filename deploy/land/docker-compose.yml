@@ -46,14 +46,20 @@ plone:
     io.rancher.scheduler.affinity:host_label: copernicus=yes
   tty: true
   stdin_open: true
+  expose:
+  - "8021"
+  - "8080"
   links:
   - zeoserver
   - memcached
   - postfix
   environment:
     ZOPE_MODE: zeo_client
+    COPERNICUS_DOWNLOADS_PATH: "/data/downloads/files/"
+    COPERNICUS_DOWNLOADS_NAME: "files"
   volumes:
   - /etc/localtime:/etc/localtime:ro
+  - ${DOWNLOADS}:/data/downloads:ro
 
 async:
   image: eeacms/plone-copernicus-land:${VERSION}
