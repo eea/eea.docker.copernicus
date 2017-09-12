@@ -59,7 +59,7 @@ plone:
     COPERNICUS_DOWNLOADS_NAME: "files"
   volumes:
   - /etc/localtime:/etc/localtime:ro
-  - ${DOWNLOADS}:/data/downloads:ro
+  - ${DOWNLOADS}:/data/downloads
 
 async:
   image: eeacms/plone-copernicus-land:${VERSION}
