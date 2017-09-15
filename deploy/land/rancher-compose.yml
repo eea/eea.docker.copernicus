@@ -8,6 +8,7 @@ haproxy:
     strategy: recreate
     healthy_threshold: 2
     response_timeout: 2000
+
 memcached:
   scale: 1
   health_check:
@@ -17,6 +18,7 @@ memcached:
     strategy: recreate
     response_timeout: 2000
     healthy_threshold: 2
+
 postfix:
   scale: 1
   health_check:
@@ -26,6 +28,7 @@ postfix:
     strategy: recreate
     response_timeout: 2000
     healthy_threshold: 2
+
 plone:
   scale: ${PLONE_SCALE}
   health_check:
@@ -36,6 +39,7 @@ plone:
     strategy: recreate
     response_timeout: 3000
     healthy_threshold: 2
+
 async:
   scale: ${ASYNC_SCALE}
   health_check:
@@ -46,6 +50,7 @@ async:
     strategy: recreate
     response_timeout: 3000
     healthy_threshold: 2
+
 zeoserver:
   scale: 1
   health_check:
@@ -56,5 +61,6 @@ zeoserver:
     strategy: recreate
     response_timeout: 3000
     healthy_threshold: 2
+
 data:
   scale: 1

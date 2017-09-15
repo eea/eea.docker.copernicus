@@ -1,94 +1,107 @@
-apache:
-  image: eeacms/apache-copernicus
-  links:
-  - haproxy
-  environment:
-  - CONFIG_URL=${CONFIG_URL}
+version: "2"
 
-haproxy:
-  image: eeacms/haproxy
-  labels:
-    io.rancher.scheduler.affinity:host_label: copernicus=yes
-  tty: true
-  stdin_open: true
-  links:
-  - plone
-  environment:
-  - BACKENDS=plone
-  - BACKENDS_PORT=8080
-  - DNS_ENABLED=true
-  - TIMEOUT_SERVER=180000
-  - TIMEOUT_CLIENT=180000
-  volumes:
-  - /etc/localtime:/etc/localtime:ro
+services:
 
-memcached:
-  image: eeacms/memcached
-  labels:
-    io.rancher.scheduler.affinity:host_label: copernicus=yes
-  tty: true
-  stdin_open: true
+  apache:
+    image: eeacms/apache-copernicus
+    labels:
+      io.rancher.scheduler.affinity:host_label: land=yes
+    links:
+    - haproxy
+    environment:
+    - CONFIG_URL=${CONFIG_URL}
+    ports:
+      - "9000:80"
 
-postfix:
-  image: eeacms/postfix:eionet
-  labels:
-    io.rancher.scheduler.affinity:host_label: copernicus=yes
-  tty: true
-  stdin_open: true
-  environment:
-  - MTP_HOST=eea.europa.eu
-  volumes:
-  - /etc/localtime:/etc/localtime:ro
+  haproxy:
+    image: eeacms/haproxy
+    labels:
+      io.rancher.scheduler.affinity:host_label: land=yes
+    tty: true
+    stdin_open: true
+    links:
+    - plone
+    environment:
+    - BACKENDS=plone
+    - BACKENDS_PORT=8080
+    - DNS_ENABLED=true
+    - TIMEOUT_SERVER=180000
+    - TIMEOUT_CLIENT=180000
+    volumes:
+    - /etc/localtime:/etc/localtime:ro
+    ports:
+      - "5000:5000"
 
-plone:
-  image: eeacms/plone-copernicus-land:${VERSION}
-  labels:
-    io.rancher.scheduler.affinity:host_label: copernicus=yes
-  tty: true
-  stdin_open: true
-  links:
-  - zeoserver
-  - memcached
-  - postfix
-  environment:
-    ZOPE_MODE: zeo_client
-  volumes:
-  - /etc/localtime:/etc/localtime:ro
+  memcached:
+    image: eeacms/memcached
+    labels:
+      io.rancher.scheduler.affinity:host_label: land=yes
+    tty: true
+    stdin_open: true
 
-async:
-  image: eeacms/plone-copernicus-land:${VERSION}
-  labels:
-    io.rancher.scheduler.affinity:host_label: copernicus=yes
-  tty: true
-  stdin_open: true
-  links:
-  - zeoserver
-  - memcached
-  - postfix
-  environment:
-    ZOPE_MODE: zeo_async
-  volumes:
-  - /etc/localtime:/etc/localtime:ro
+  postfix:
+    image: eeacms/postfix:eionet
+    labels:
+      io.rancher.scheduler.affinity:host_label: land=yes
+    tty: true
+    stdin_open: true
+    environment:
+    - MTP_HOST=eea.europa.eu
+    volumes:
+    - /etc/localtime:/etc/localtime:ro
 
-zeoserver:
-  image: plone/zeoserver:2.13.23
-  labels:
-    io.rancher.sidekicks: data
-    io.rancher.scheduler.affinity:host_label: copernicus=yes
-  volumes_from:
-  - data
-  environment:
-    TZ: "Europe/Copenhagen"
+  plone:
+    image: eeacms/plone-copernicus-land:${VERSION}
+    labels:
+      io.rancher.scheduler.affinity:host_label: land=yes
+    tty: true
+    stdin_open: true
+    links:
+    - zeoserver
+    - memcached
+    - postfix
+    environment:
+      ZOPE_MODE: zeo_client
+    volumes:
+    - /etc/localtime:/etc/localtime:ro
 
-data:
-  image: busybox
-  labels:
-    io.rancher.container.start_once: 'true'
-  tty: true
-  stdin_open: true
-  volumes:
-  - ${FILESTORAGE}:/data/filestorage
-  - ${BLOBSTORAGE}:/data/blobstorage
-  - ${DOWNLOADS}:/data/downloads
-  volume_driver: ${VOLUME_DRIVER}
-  command: ["chown", "-R", "500:500", "/data"]
+  async:
+    image: eeacms/plone-copernicus-land:${VERSION}
+    labels:
+      io.rancher.scheduler.affinity:host_label: land=yes
+    tty: true
+    stdin_open: true
+    links:
+    - zeoserver
+    - memcached
+    - postfix
+    environment:
+      ZOPE_MODE: zeo_async
+    volumes:
+    - /etc/localtime:/etc/localtime:ro
+
+  zeoserver:
+    image: plone/zeoserver:2.13.23
+    labels:
+      io.rancher.scheduler.affinity:host_label: land=yes
+    volumes:
+      - land-data:/data
+    environment:
+      TZ: "Europe/Copenhagen"
+
+  # shell:
+  #   image: busybox
+  #   labels:
+  #     io.rancher.scheduler.affinity:host_label: land=yes
+  #   command: sh -c "tail -f /dev/null"
+  #   volumes:
+  #     - land-data:/data
+
+volumes:
+  land-data:
+    driver: rancher-nfs
+    external: true
+  land-filestorage:
+    driver: local
+  land-blobstorage:
+    driver: local
