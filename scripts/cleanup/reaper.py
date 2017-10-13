@@ -1,4 +1,4 @@
-#! /usr/bin/env python
+#! /usr/bin/env python3
 
 import os
 import logging
@@ -58,7 +58,7 @@ def _reap_expired(basepath):
 
 
 def reap(target):
-    LOGGER.info('Running in %s!', target)
+    LOGGER.info('Running in %s...', target)
 
     _parent_join = partial(os.path.join, target)
 
