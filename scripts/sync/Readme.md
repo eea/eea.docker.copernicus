@@ -1,4 +1,4 @@
-# Cleanup container for land file downloads
+# Sync container for land files
 
 This should be run via [Rancher container-crontab](https://github.com/rancher/container-crontab).
 
