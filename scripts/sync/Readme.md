@@ -4,7 +4,8 @@ This should be run via [Rancher container-crontab](https://github.com/rancher/co
 
 ## Variables
 
-* `TARGET_DIRECTORY`: defaults to `/downloads/landfiles/src/`
+* `SOURCE_DIRECTORY`: path relative to `RCLONE_CONFIG_REMOTE_URL`, defaults to `/`
+* `TARGET_DIRECTORY`: where to put the files, defaults to `/downloads/landfiles/src/`
 * `RCLONE_CONFIG_REMOTE_TYPE`: defaults to `http` [**optional**]
 * `RCLONE_CONFIG_REMOTE_URL`: defaults to `https://localhost` [**required**]
 

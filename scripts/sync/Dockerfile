@@ -1,5 +1,6 @@
 FROM alpine:3.6
 
+ENV SOURCE_DIRECTORY="/"
 ENV TARGET_DIRECTORY="/downloads/landfiles/src/"
 
 ENV RCLONE_CONFIG_REMOTE_TYPE=http
@@ -12,4 +13,4 @@ RUN apk add --no-cache curl unzip && \
     mv rclone-*-linux-amd64/rclone /usr/bin/ && \
     rm -rf rclone*
 
-CMD ["sh", "-c", "rclone sync -v remote: $TARGET_DIRECTORY"]
+CMD ["sh", "-c", "rclone sync -v remote:$SOURCE_DIRECTORY $TARGET_DIRECTORY"]
