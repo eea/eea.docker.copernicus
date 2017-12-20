@@ -20,6 +20,11 @@ services:
     # then you can start the instance with bin/zeo_client fg
     entrypoint: sh -c "tail -f /dev/null"
 
+  memcached:
+    image: eeacms/memcached
+    tty: true
+    stdin_open: true
+
   # async:
   #   image: eeacms/plone-copernicus-land
   #   tty: true
