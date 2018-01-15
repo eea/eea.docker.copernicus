@@ -5,4 +5,4 @@ ENV TARGET_DIRECTORY="/downloads/landfiles/src/"
 
 RUN apk add --no-cache wget
 
-CMD ["sh", "-c", "wget --mirror -A '*.zip' -nH -np -P $TARGET_DIRECTORY $REMOTE_URL"]
+CMD ["sh", "-c", "wget --mirror -A '*.zip' -nH -np -nv -P $TARGET_DIRECTORY $REMOTE_URL"]
