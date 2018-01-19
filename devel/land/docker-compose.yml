@@ -10,7 +10,7 @@ services:
     volumes:
       - land-data:/data
       - ./src:/plone/instance/src
-      - ./buildout.cfg:/plone/instance/buildout.cfg
+    #  - ./buildout.cfg:/plone/instance/buildout.cfg
     environment:
       ZOPE_MODE: zeo_client
       LAND_DOWNLOADS_SRC_PATH: /tmp/
