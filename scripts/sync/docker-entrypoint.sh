@@ -39,7 +39,7 @@ EOF
         exit 1
 else
         echo "Command finished with success" >> $logname
-        echo "Last sync with transferred files on - $current_date" > $lastsuccrun
+        echo "Last succesfull syncronization on - $current_date" > $lastsuccrun
         grep -E '^Transferred:|^Errors:|^Checks:|^Elapsed time:' $logname >> $lastsuccrun
 
 fi
@@ -59,7 +59,7 @@ else
 	echo "Sync finished without transferring any new files"
 fi
 
-if [ -n "$ALLWAYS_SEND_EMAIL" ]; then
+if [ -n "$ALWAYS_SEND_EMAIL" ]; then
                sendmail -f ${FROM_ADDRESS} ${TO_ADDRESS}  <<EOF
 From: ${FROM_ADDRESS}
 Subject: INFO copernicus landfiles sync summary on $(hostname)
