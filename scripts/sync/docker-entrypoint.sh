@@ -117,3 +117,8 @@ EOF
 fi
 
 
+
+#delete old logs
+DELETE_OLDER_LOGS=${DELETE_OLDER_LOGS:-90}
+find /logs -type f -mtime +$DELETE_OLDER_LOGS | xargs rm -f
+
