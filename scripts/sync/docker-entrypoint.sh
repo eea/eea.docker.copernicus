@@ -102,7 +102,7 @@ EOF
 fi
 
 
-HOURS_WITHOUT_RUN=${HOURS_WITHOUT_RUN:-24}
+HOURS_WITHOUT_RUN=${HOURS_WITHOUT_RUN:-48}
 let mins=60*$HOURS_WITHOUT_RUN
 
 if [ $(grep "Command finished with success" $(find /logs -type f -mmin -$mins) | wc -l) -eq 0 ]; then
