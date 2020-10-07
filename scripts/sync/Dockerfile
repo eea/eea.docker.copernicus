@@ -7,7 +7,7 @@ ENV RCLONE_CONFIG_REMOTE_TYPE=http
 ENV RCLONE_CONFIG_REMOTE_URL="https://localhost/"
 
 
-RUN apk add --no-cache curl unzip mailx ssmtp && \
+RUN apk add --no-cache curl unzip ssmtp && \
     curl -O https://downloads.rclone.org/rclone-current-linux-amd64.zip && \
     unzip rclone-current-linux-amd64.zip && \
     mv rclone-*-linux-amd64/rclone /usr/bin/ && \
