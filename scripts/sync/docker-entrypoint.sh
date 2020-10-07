@@ -19,8 +19,8 @@ fi
 
 #configure email
 
-sed -i "s/.*mailhub=.*/mailhub=$POSTFIX_SERVER//" /etc/ssmtp/ssmtp.conf
-sed -i "s/.*rewriteDomain=.*/rewriteDomain=eea.europa.eu//" /etc/ssmtp/ssmtp.conf
+sed -i "s/.*mailhub=.*/mailhub=$POSTFIX_SERVER/" /etc/ssmtp/ssmtp.conf
+sed -i "s/.*rewriteDomain=.*/rewriteDomain=eea.europa.eu/" /etc/ssmtp/ssmtp.conf
 if [ $(grep ^FromLineOverride /etc/ssmtp/ssmtp.conf | wc -l ) -eq 0 ]; then
       echo "FromLineOverride=YES" >> /etc/ssmtp/ssmtp.conf
 fi
